@@ -18,7 +18,9 @@ heroes_router = APIRouter(
 
 
 @heroes_router.get("/", response_model=PaginatedResponse[HeroResponse])
-def get_heroes(params=Depends(list_query_params), db: Session = Depends(get_db)):
+def get_heroes(
+    params=Depends(list_query_params), db: Session = Depends(get_db)
+):
     stmt = select(Heroes).limit(params["limit"]).offset(params["offset"])
     results = db.exec(stmt)
     heroes = results.all()
@@ -83,7 +85,9 @@ def create_hero(
     body: HeroCreateRequest,
     db: Session = Depends(get_db),
 ):
-    new_hero = Heroes(name=body.name, type=body.type, difficulty=body.difficulty)
+    new_hero = Heroes(
+        name=body.name, type=body.type, difficulty=body.difficulty
+    )
     db.add(new_hero)
     db.commit()
     db.refresh(new_hero)
@@ -98,8 +102,12 @@ def create_hero(
     )
 
 
-@heroes_router.patch("/{hero_id}", responses={404: {"description": "Hero not found"}})
-def update_hero(hero_id: str, body: HeroUpdateRequest, db: Session = Depends(get_db)):
+@heroes_router.patch(
+    "/{hero_id}", responses={404: {"description": "Hero not found"}}
+)
+def update_hero(
+    hero_id: str, body: HeroUpdateRequest, db: Session = Depends(get_db)
+):
     stmt = select(Heroes).where(Heroes.id == hero_id)
     results = db.exec(stmt)
     updated_hero = results.one()
@@ -127,8 +135,12 @@ def update_hero(hero_id: str, body: HeroUpdateRequest, db: Session = Depends(get
     )
 
 
-@heroes_router.delete("/{hero_id}", responses={404: {"description": "Hero not found"}})
-def delete_hero(hero_id: str, body: HeroUpdateRequest, db: Session = Depends(get_db)):
+@heroes_router.delete(
+    "/{hero_id}", responses={404: {"description": "Hero not found"}}
+)
+def delete_hero(
+    hero_id: str, body: HeroUpdateRequest, db: Session = Depends(get_db)
+):
     stmt = select(Heroes).where(Heroes.id == hero_id)
     results = db.exec(stmt)
     updated_hero = results.one()

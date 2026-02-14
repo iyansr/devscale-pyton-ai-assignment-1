@@ -20,4 +20,6 @@ class Players(SQLModel, table=True):
     id: str = Field(default_factory=cuid, primary_key=True)
     username: str
     rank: str
-    favourite_heroes: list["Heroes"] = Relationship(link_model=PlayerFavouriteHero)
+    favourite_heroes: list["Heroes"] = Relationship(
+        link_model=PlayerFavouriteHero
+    )

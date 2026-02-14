@@ -20,7 +20,9 @@ player_router = APIRouter(
 
 
 @player_router.get("/", response_model=PaginatedResponse[PlayerResponse])
-def get_players(params=Depends(list_query_params), db: Session = Depends(get_db)):
+def get_players(
+    params=Depends(list_query_params), db: Session = Depends(get_db)
+):
     stmt = select(Players).limit(params["limit"]).offset(params["offset"])
     results = db.exec(stmt)
     players = results.all()

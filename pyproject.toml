@@ -14,3 +14,15 @@ dependencies = [
     "sqlmodel>=0.0.32",
     "uvicorn>=0.40.0",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.0",
+]
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+exclude = ["alembic"]

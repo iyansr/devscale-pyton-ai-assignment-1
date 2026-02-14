@@ -26,4 +26,6 @@ app.include_router(
 
 @app.get("/scalar")
 def scalar_doc():
-    return get_scalar_api_reference(openapi_url=app.openapi_url, title=app.title)
+    return get_scalar_api_reference(
+        openapi_url=app.openapi_url, title=app.title
+    )

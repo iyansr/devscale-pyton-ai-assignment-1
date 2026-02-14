@@ -6,3 +6,12 @@ db-migrate:
 
 db-upgrade:
 	uv run alembic upgrade head
+
+lint:
+	uv run ruff check
+
+lint-fix:
+	uv run ruff check --fix .
+
+format:
+	uv run ruff format .
