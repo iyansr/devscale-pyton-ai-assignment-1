@@ -29,3 +29,12 @@ def scalar_doc():
     return get_scalar_api_reference(
         openapi_url=app.openapi_url, title=app.title
     )
+
+
+@app.get("/")
+def root():
+    return {
+        "message": "Welcome to the Dota 2 API!",
+        "docs": "https://dota-2-api.iyansr.id/scalar",
+        "version": settings.VERSION,
+    }
